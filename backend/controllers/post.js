@@ -1,9 +1,8 @@
 const Post = require('../models/Post')
 
 async function addPosts(postData) {
-    return await Post
-        .create(postData)
-        .populate({
+    const newPost = await Post.create(postData)
+        return await newPost.populate({
         path:'comments',
         populate: 'author'
     })

@@ -6,6 +6,5 @@ module.exports = function(roles){
             return
         }
         next()
-
     }
 }
