@@ -2,7 +2,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { PostCard, Pagination, Search } from './components';
 import { PAGINATION_LIMIT } from '../../constants';
-import { request } from '../../utils';
+import { request, normalizePostData } from '../../utils';
 import { debounce } from './utils';
 import styled from 'styled-components';
 
@@ -15,7 +15,7 @@ const MainContentContainer = ({ className }) => {
 
 	useEffect(() => {
 		request(`/api/posts?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}`).then(({ data }) => {
-			setPosts(data.posts);
+			setPosts(data.posts.map(normalizePostData));
 			setLastPage(data.lastPage);
 		});
 	}, [page, shouldSearch, searchPhrase]);

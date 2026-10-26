@@ -10,7 +10,8 @@ const PostScheme  = mongoose.Schema({
         type: String,
         required: true,
         validate:{
-            validator: validator.isURL,
+            validator: (value) =>
+                validator.isURL(value) || /^\/upload\/[^/]+$/.test(value),
             message:'Image is should be a valid URL',
         }
     },
