@@ -14,17 +14,13 @@ const PostFormContainer = ({ className, post: { id, title, imageUrl, content, pu
 	const [imageUrlValue, setImageUrlValue] = useState(imageUrl);
 	const [imageFile, setImageFile] = useState(null);
 	const [titleValue, setTitleValue] = useState(title);
-	console.log('id:', id);
-	console.log('title:', title);
-	console.log('imageUrl:', imageUrl);
-	console.log('content:', content);
-	console.log('publishedAt:', publishedAt);
 
 	const onUploadFile = ({ target }) => {
 		if (!target.files || target.files.length === 0) return;
 		const file = target.files[0];
 		setImageFile(file);
 	};
+	const onChangeTitle = ({ target }) => setTitleValue(target.value);
 
 	useEffect(() => {
 		// eslint-disable-next-line react-hooks/set-state-in-effect
@@ -39,6 +35,7 @@ const PostFormContainer = ({ className, post: { id, title, imageUrl, content, pu
 	const onSave = () => {
 		const formData = new FormData();
 		const newContent = sanitizeContent(contentRef.current.innerHTML);
+
 		formData.append('title', titleValue);
 		formData.append('content', newContent);
 
@@ -79,12 +76,8 @@ const PostFormContainer = ({ className, post: { id, title, imageUrl, content, pu
 				) : null}
 			</div>
 
-			<Input
-				className="title"
-				value={titleValue}
-				onChange={({ target }) => setTitleValue(target.value)}
-				placeholder="Заголовок ..."
-			/>
+			<Input className="title" value={titleValue} onChange={onChangeTitle} placeholder="Заголовок ..." />
+
 			<SpecialPanel
 				id={id}
 				publishedAt={publishedAt}

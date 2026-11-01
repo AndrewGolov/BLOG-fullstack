@@ -17,12 +17,8 @@ app.use(express.json());
 app.use('/api', routes)
 
 
-/*TODO
-   Добавить обработку ошибок для выведения корректных ошибок
- * */
-
 const startServer = async () => {
-  await fs.mkdir(uploadDir, { recursive: true });
+  await fs.mkdir('upload', { recursive: true });
 
   await mongoose.connect(process.env.DB_CONNECTION_STRING);
 

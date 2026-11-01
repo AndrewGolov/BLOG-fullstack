@@ -7,9 +7,7 @@ export const savePostAsync = (id, formData) => (dispatch) => {
 		: request('/api/posts/create', 'POST', formData);
 
 	return saveRequest.then((postData) => {
-		console.log('SAVE_POST_ASYNC:', postData);
 		dispatch(setPostData(postData.data));
-
 		return postData.data;
 	});
 };
