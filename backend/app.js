@@ -6,19 +6,22 @@ const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const PORT = 3001;
 const app = express();
-const path = require('node:path');
-const fs = require('node:fs/promises');
+const path = require("node:path");
+const fs = require("node:fs/promises");
 
-const uploadDir = path.join(__dirname, 'upload');
+const uploadDir = path.join(__dirname, "upload");
 
-app.use('/upload', express.static(uploadDir));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+app.use("/upload", express.static(uploadDir));
 app.use(cookieParser());
 app.use(express.json());
-app.use('/api', routes)
-
-
+app.use("/api", routes);
+app.get("/{*splat}", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
+});
 const startServer = async () => {
-  await fs.mkdir('upload', { recursive: true });
+  await fs.mkdir(uploadDir, { recursive: true });
 
   await mongoose.connect(process.env.DB_CONNECTION_STRING);
 
@@ -28,6 +31,6 @@ const startServer = async () => {
 };
 
 startServer().catch((error) => {
-  console.error('Ошибка запуска сервера:', error);
+  console.error("Ошибка запуска сервера:", error);
   process.exit(1);
 });

@@ -36,7 +36,6 @@ const PostContainer = ({ className }) => {
 	}, [isCreating, dispatch, params.id]);
 
 	if (isLoading) return null;
-	console.log(post);
 
 	return error ? (
 		<Error error={error} />

@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN mkdir -p uploads
-
 WORKDIR /app/frontend
 RUN npm i
 RUN npm run build
