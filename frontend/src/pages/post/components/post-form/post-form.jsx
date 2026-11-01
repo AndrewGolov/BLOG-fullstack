@@ -65,7 +65,7 @@ const PostFormContainer = ({ className, post: { id, title, imageUrl, content, pu
 						type="file"
 						id="imageFile"
 						name="imageFile"
-						accept="image/jpeg,image/png,image/webp,image/gif"
+						accept="image/jpeg,image/png,image/webp"
 					/>
 				</div>
 
